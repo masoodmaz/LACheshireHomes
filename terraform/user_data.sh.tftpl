@@ -1,8 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # cloud-init bootstrap for the LA Cheshire Homes Lightsail instance.
 # Installs Docker + Compose, mounts the persistent data disk, and (optionally)
 # deploys the app from a git repo.
-set -euxo pipefail
+#
+# NOTE: Lightsail's cloud-init may run this under dash (/bin/sh), so keep it
+# POSIX-compatible — no `pipefail` or other bashisms.
+set -eux
 
 APP_DIR="/opt/${instance_name}"
 MOUNT_POINT="/opt/${instance_name}"
@@ -21,10 +24,15 @@ usermod -aG docker ubuntu || true
 # 2. Find, format (once) and mount the disk
 #############################################
 # Lightsail attaches the disk at /dev/xvdf, but Nitro hosts may expose it as
-# an nvme device. Resolve whichever unmounted, unpartitioned disk is ours.
+# an nvme device. The attachment completes ~60s AFTER the instance boots, so
+# poll for the device (up to ~5 min) instead of checking once.
 DEVICE=""
-for candidate in /dev/xvdf /dev/nvme1n1; do
-  if [ -b "$candidate" ]; then DEVICE="$candidate"; break; fi
+for _ in $(seq 1 60); do
+  for candidate in /dev/xvdf /dev/nvme1n1; do
+    if [ -b "$candidate" ]; then DEVICE="$candidate"; break; fi
+  done
+  [ -n "$DEVICE" ] && break
+  sleep 5
 done
 
 if [ -n "$DEVICE" ]; then
@@ -47,8 +55,13 @@ mkdir -p "$APP_DIR"
 #############################################
 REPO_URL="${repo_url}"
 if [ -n "$REPO_URL" ]; then
+  # The disk mount point contains lost+found, so clone into a temp dir and copy
+  # in (git clone refuses a non-empty target).
   if [ ! -d "$APP_DIR/.git" ]; then
-    git clone "$REPO_URL" "$APP_DIR"
+    TMP="$(mktemp -d)"
+    git clone "$REPO_URL" "$TMP"
+    cp -a "$TMP/." "$APP_DIR/"
+    rm -rf "$TMP"
   else
     git -C "$APP_DIR" pull --ff-only || true
   fi
@@ -69,5 +82,17 @@ services:
       - "80:5000"
 YAML
 
-  docker compose up -d --build
+  # Build first so we can read the container's uid/gid, then create the
+  # bind-mount targets owned by that user. The app runs as non-root, so the
+  # host-side ./data and ./public/uploads dirs must be writable by it or SQLite
+  # fails with "unable to open database file".
+  docker compose build
+  mkdir -p data public/uploads/images public/uploads/videos
+  APPUID="$(docker compose run --rm app id -u 2>/dev/null | tr -d '[:space:]')"
+  APPGID="$(docker compose run --rm app id -g 2>/dev/null | tr -d '[:space:]')"
+  [ -n "$APPUID" ] || APPUID=100
+  [ -n "$APPGID" ] || APPGID=101
+  chown -R "$APPUID:$APPGID" data public/uploads
+
+  docker compose up -d
 fi

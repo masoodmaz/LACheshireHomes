@@ -41,6 +41,12 @@ resource "aws_lightsail_disk_attachment" "data" {
   disk_name     = aws_lightsail_disk.data.name
   instance_name = aws_lightsail_instance.app.name
   disk_path     = "/dev/xvdf"
+
+  # The instance keeps its name across a replacement, so this attachment
+  # wouldn't otherwise notice. Force it to re-attach to the new instance.
+  lifecycle {
+    replace_triggered_by = [aws_lightsail_instance.app.id]
+  }
 }
 
 ########################################
@@ -53,6 +59,11 @@ resource "aws_lightsail_static_ip" "app" {
 resource "aws_lightsail_static_ip_attachment" "app" {
   static_ip_name = aws_lightsail_static_ip.app.name
   instance_name  = aws_lightsail_instance.app.name
+
+  # Re-attach the static IP whenever the instance is replaced.
+  lifecycle {
+    replace_triggered_by = [aws_lightsail_instance.app.id]
+  }
 }
 
 ########################################
