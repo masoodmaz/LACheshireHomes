@@ -12,9 +12,11 @@ resource "aws_lightsail_instance" "app" {
   key_pair_name = var.ssh_key_name != "" ? var.ssh_key_name : null
 
   # cloud-init: install Docker, mount the persistent disk, optionally deploy.
+  # public_ip is the static IP — used by Caddy for the self-signed TLS cert.
   user_data = templatefile("${path.module}/user_data.sh.tftpl", {
     repo_url      = var.repo_url
     instance_name = var.instance_name
+    public_ip     = aws_lightsail_static_ip.app.ip_address
   })
 
   tags = {

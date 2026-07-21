@@ -74,12 +74,40 @@ if [ -n "$REPO_URL" ]; then
     cp .env.example .env
   fi
 
-  # Publish the app on port 80 by mapping host 80 -> container 5000.
+  # Reverse proxy (Caddy) terminates self-signed TLS on 80/443 and proxies to
+  # the app over the internal Docker network. No domain yet, so Caddy's internal
+  # CA issues a cert for the IP; default_sni lets it serve that cert when clients
+  # connect to the bare IP (which sends no TLS SNI).
+  cat > Caddyfile <<'CADDY'
+{
+	default_sni ${public_ip}
+}
+
+${public_ip} {
+	tls internal
+	reverse_proxy app:5000
+}
+CADDY
+
   cat > docker-compose.override.yml <<'YAML'
 services:
-  app:
+  caddy:
+    image: caddy:2-alpine
+    container_name: ${instance_name}-caddy
+    restart: unless-stopped
+    depends_on:
+      - app
     ports:
-      - "80:5000"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
 YAML
 
   # Build first so we can read the container's uid/gid, then create the
