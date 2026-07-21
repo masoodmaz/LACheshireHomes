@@ -1,0 +1,16 @@
+<section class="container section">
+  <%- include("_admin-nav") %>
+  <h1>Welcome, <%= admin.name %></h1>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <span class="subtle">Projects</span>
+      <strong><%= projectCount %></strong>
+      <a href="/admin/projects">Manage projects &rarr;</a>
+    </div>
+    <div class="stat-card">
+      <span class="subtle">Blog posts</span>
+      <strong><%= postCount %></strong>
+      <a href="/admin/blog">Manage blog &rarr;</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="container section">
+  <%- include("_admin-nav") %>
+  <div class="section-heading">
+    <h1>Blog posts</h1>
+    <a class="button primary" href="/admin/blog/new">+ New post</a>
+  </div>
+
+  <% if (!posts.length) { %>
+    <p class="subtle">No posts yet. Write your first one.</p>
+  <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr><th>Title</th><th>Published</th><th>Updated</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% posts.forEach(post => { %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.published ? "Yes" : "No" %></td>
+            <td><%= new Date(post.updated_at).toLocaleDateString() %></td>
+            <td class="table-actions">
+              <a href="/admin/blog/<%= post.id %>/edit">Edit</a>
+              <a href="/blog/<%= post.slug %>" target="_blank" rel="noopener noreferrer">View</a>
+              <form method="post" action="/admin/blog/<%= post.id %>/delete" onsubmit="return confirm('Delete this post?');">
+                <button class="link-button danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</section>

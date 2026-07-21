@@ -1,0 +1,20 @@
+<nav id="nav" class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">LA <b>Homes</b> Cheshire<small>Property Developers</small></a>
+    <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="main-nav" id="mainNav">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/projects">Projects</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">Company</a></li>
+      <li><a class="nav-cta" href="/contact">Get in Touch</a></li>
+      <% if (admin) { %>
+        <li><a href="/admin" class="nav-admin">Admin</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
+
+<%- include("whatsapp") %>

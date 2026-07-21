@@ -1,0 +1,81 @@
+<section class="container section">
+  <%- include("_admin-nav") %>
+  <a class="back-link" href="/admin/projects">&larr; All projects</a>
+  <h1><%= project ? "Edit project" : "New project" %></h1>
+
+  <form class="admin-form" method="post" enctype="multipart/form-data"
+        action="<%= project ? `/admin/projects/${project.id}` : '/admin/projects' %>">
+    <label>Title
+      <input type="text" name="title" value="<%= project ? project.title : '' %>" required>
+    </label>
+    <label>Location
+      <input type="text" name="location" value="<%= project ? project.location : '' %>" placeholder="e.g. Nantwich, Cheshire">
+    </label>
+    <div class="form-row-2">
+      <label>Status
+        <select name="status">
+          <% ["ongoing", "upcoming", "completed"].forEach(option => { %>
+            <option value="<%= option %>" <%= project && project.status === option ? "selected" : "" %>><%= option %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Category
+        <select name="category">
+          <option value="portfolio" <%= !project || project.category === "portfolio" ? "selected" : "" %>>Portfolio (shown as a property card)</option>
+          <option value="heritage" <%= project && project.category === "heritage" ? "selected" : "" %>>Heritage (simple list entry, 2008&ndash;2010 style)</option>
+        </select>
+      </label>
+    </div>
+    <label>Summary (short teaser shown on cards)
+      <textarea name="summary" rows="2"><%= project ? project.summary : '' %></textarea>
+    </label>
+    <label>Description (full project details)
+      <textarea name="description" rows="8"><%= project ? project.description : '' %></textarea>
+    </label>
+    <label>Video URL (YouTube or Vimeo link, optional)
+      <input type="url" name="video_url" value="<%= project ? (project.video_url || '') : '' %>" placeholder="https://www.youtube.com/watch?v=...">
+    </label>
+    <label>Cover image
+      <input type="file" name="cover_image" accept="image/*">
+    </label>
+    <% if (project && project.cover_image) { %>
+      <img class="thumb-preview" src="<%= project.cover_image %>" alt="Current cover">
+    <% } %>
+    <label class="checkbox-row">
+      <input type="checkbox" name="published" value="1" <%= !project || project.published ? "checked" : "" %>>
+      Published (visible to public)
+    </label>
+    <button class="button primary" type="submit"><%= project ? "Save changes" : "Create project" %></button>
+  </form>
+
+  <% if (project) { %>
+    <hr class="divider">
+    <h2>Gallery media</h2>
+    <form class="admin-form" method="post" enctype="multipart/form-data" action="/admin/projects/<%= project.id %>/media">
+      <label>Add images / videos
+        <input type="file" name="media_files" accept="image/*,video/*" multiple required>
+      </label>
+      <button class="button secondary" type="submit">Upload</button>
+    </form>
+
+    <% if (media.length) { %>
+      <div class="media-grid">
+        <% media.forEach(item => { %>
+          <div class="media-item">
+            <% if (item.type === "image") { %>
+              <img src="<%= item.file_path %>" alt="">
+            <% } else { %>
+              <video src="<%= item.file_path %>" muted></video>
+            <% } %>
+            <form method="post" action="/admin/projects/<%= project.id %>/media/<%= item.id %>/delete"
+                  onsubmit="return confirm('Remove this media item?');">
+              <button class="link-button danger" type="submit">Remove</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="subtle">No gallery media uploaded yet.</p>
+    <% } %>
+  <% } %>
+</section>

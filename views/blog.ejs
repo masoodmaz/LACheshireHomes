@@ -1,0 +1,25 @@
+<section class="container section">
+  <h1>Blog</h1>
+  <% if (!posts.length) { %>
+    <p class="subtle">No posts published yet.</p>
+  <% } else { %>
+    <div class="card-grid">
+      <% posts.forEach(post => { %>
+        <a class="card" href="/blog/<%= post.slug %>">
+          <div class="card-media">
+            <% if (post.cover_image) { %>
+              <img src="<%= post.cover_image %>" alt="<%= post.title %>" loading="lazy">
+            <% } else { %>
+              <div class="card-media placeholder"></div>
+            <% } %>
+          </div>
+          <div class="card-body">
+            <h3><%= post.title %></h3>
+            <p class="subtle"><%= new Date(post.created_at).toLocaleDateString() %></p>
+            <p><%= post.excerpt %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</section>

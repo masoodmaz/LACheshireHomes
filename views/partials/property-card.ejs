@@ -1,0 +1,46 @@
+<%
+  // Expects `project` (with an `images` array attached by the route) in scope.
+  const images = project.images && project.images.length ? project.images : [];
+  const embedUrl = project.video_url ? embedUrlFor(project.video_url) : null;
+%>
+<article class="p-card">
+  <div class="p-card-media">
+    <% if (images.length) { %>
+      <div class="carousel" data-carousel>
+        <div class="carousel-track">
+          <% images.forEach(image => { %>
+            <div class="carousel-slide">
+              <img src="<%= image.file_path %>" alt="<%= project.title %>" loading="lazy">
+            </div>
+          <% }) %>
+        </div>
+        <% if (images.length > 1) { %>
+          <button class="carousel-btn prev" type="button" data-carousel-prev aria-label="Previous photo">&#8249;</button>
+          <button class="carousel-btn next" type="button" data-carousel-next aria-label="Next photo">&#8250;</button>
+          <div class="carousel-dots" data-carousel-dots>
+            <% images.forEach((image, i) => { %>
+              <button type="button" class="carousel-dot <%= i === 0 ? 'active' : '' %>" data-carousel-dot="<%= i %>" aria-label="Photo <%= i + 1 %>"></button>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="p-card-media placeholder"></div>
+    <% } %>
+    <span class="badge status-<%= project.status %>"><%= project.status %></span>
+    <% if (project.video_url) { %>
+      <button class="video-badge" type="button"
+        data-video-url="<%= project.video_url %>"
+        data-video-embed="<%= embedUrl || "" %>"
+        aria-label="Watch video for <%= project.title %>">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Video
+      </button>
+    <% } %>
+  </div>
+  <div class="p-card-body">
+    <span class="loc"><%= project.location %></span>
+    <h3><a href="/projects/<%= project.slug %>"><%= project.title %></a></h3>
+    <p><%= project.summary || (project.description || "").slice(0, 140) %></p>
+  </div>
+</article>

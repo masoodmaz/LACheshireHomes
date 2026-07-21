@@ -1,0 +1,29 @@
+<section class="container section">
+  <%- include("_admin-nav") %>
+  <a class="back-link" href="/admin/blog">&larr; All posts</a>
+  <h1><%= post ? "Edit post" : "New post" %></h1>
+
+  <form class="admin-form" method="post" enctype="multipart/form-data"
+        action="<%= post ? `/admin/blog/${post.id}` : '/admin/blog' %>">
+    <label>Title
+      <input type="text" name="title" value="<%= post ? post.title : '' %>" required>
+    </label>
+    <label>Excerpt (short summary for cards)
+      <textarea name="excerpt" rows="2"><%= post ? post.excerpt : '' %></textarea>
+    </label>
+    <label>Content
+      <textarea name="content" rows="14" required><%= post ? post.content : '' %></textarea>
+    </label>
+    <label>Cover image
+      <input type="file" name="cover_image" accept="image/*">
+    </label>
+    <% if (post && post.cover_image) { %>
+      <img class="thumb-preview" src="<%= post.cover_image %>" alt="Current cover">
+    <% } %>
+    <label class="checkbox-row">
+      <input type="checkbox" name="published" value="1" <%= !post || post.published ? "checked" : "" %>>
+      Published (visible to public)
+    </label>
+    <button class="button primary" type="submit"><%= post ? "Save changes" : "Publish post" %></button>
+  </form>
+</section>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA Homes Cheshire Ltd — Property Developer in Manchester & Cheshire</title>
+<meta name="description" content="LA Homes Cheshire Ltd is an independent property developer building new homes and delivering renovations, extensions and conversions across Manchester, Cheshire and Stockport. Property developer Cheshire · new build homes Manchester · house renovation Cheadle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#FAF8F3;
+    --stone:#ECE6DA;
+    --stone-deep:#DDD4C3;
+    --charcoal:#24221D;
+    --ink:#3A362E;
+    --green:#2E4636;
+    --green-deep:#22352A;
+    --brass:#B08D46;
+    --brass-soft:#C8A968;
+    --radius:14px;
+    --shadow:0 10px 30px rgba(36,34,29,.09);
+    --shadow-lg:0 24px 60px rgba(36,34,29,.14);
+    --font-display:"Fraunces",Georgia,serif;
+    --font-body:"Outfit",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    font-family:var(--font-body);
+    background:var(--warm-white);
+    color:var(--ink);
+    line-height:1.65;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:4px}
+
+  .wrap{width:min(1180px,92%);margin:0 auto}
+  .eyebrow{
+    font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--brass);font-weight:600;display:flex;align-items:center;gap:.75rem;
+  }
+  .eyebrow::before{content:"";width:34px;height:1.5px;background:var(--brass)}
+  h1,h2,h3{font-family:var(--font-display);font-weight:400;color:var(--charcoal);line-height:1.12}
+  h2{font-size:clamp(2rem,4vw,3rem);margin:.9rem 0 1.1rem}
+  .lede{max-width:56ch;font-size:1.08rem;color:#57524a}
+  section{padding:clamp(4.5rem,9vw,7.5rem) 0}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed;inset:0 0 auto 0;z-index:60;
+    background:rgba(250,248,243,.88);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(36,34,29,.08);
+    transition:box-shadow .3s;
+  }
+  nav.scrolled{box-shadow:0 6px 24px rgba(36,34,29,.08)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{font-family:var(--font-display);font-size:1.3rem;color:var(--charcoal);text-decoration:none;letter-spacing:.01em}
+  .logo b{font-weight:600;color:var(--green)}
+  .logo small{display:block;font-family:var(--font-body);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--brass);font-weight:600}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink);transition:color .2s}
+  .nav-links a:hover{color:var(--green)}
+  .nav-cta{
+    background:var(--green);color:#fff!important;padding:.6rem 1.3rem;border-radius:999px;
+    transition:background .2s,transform .2s;
+  }
+  .nav-cta:hover{background:var(--green-deep);transform:translateY(-1px)}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:.5rem}
+  .burger span{display:block;width:24px;height:2px;background:var(--charcoal);margin:5px 0;transition:.3s}
+  @media(max-width:880px){
+    .burger{display:block}
+    .nav-links{
+      position:fixed;top:76px;right:0;background:var(--warm-white);
+      flex-direction:column;width:min(320px,80vw);height:calc(100vh - 76px);
+      padding:2.5rem 2rem;gap:1.5rem;align-items:flex-start;
+      transform:translateX(100%);transition:transform .3s;box-shadow:var(--shadow-lg);
+    }
+    .nav-links.open{transform:translateX(0)}
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    min-height:100svh;display:flex;align-items:flex-end;position:relative;overflow:hidden;
+    background:linear-gradient(160deg,var(--green-deep) 0%,var(--green) 55%,#3B5A45 100%);
+    color:var(--warm-white);padding:9rem 0 5rem;
+  }
+  .hero-art{position:absolute;inset:0;opacity:.16;pointer-events:none}
+  .hero-postcodes{
+    position:absolute;right:-2%;top:10%;font-family:var(--font-display);
+    font-size:clamp(5rem,13vw,11rem);line-height:.95;color:rgba(250,248,243,.06);
+    text-align:right;user-select:none;pointer-events:none;font-weight:300;
+  }
+  .hero-inner{position:relative;z-index:2}
+  .hero .eyebrow{color:var(--brass-soft)}
+  .hero .eyebrow::before{background:var(--brass-soft)}
+  h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:1.2rem 0 1.4rem;max-width:15ch;color:var(--warm-white)}
+  h1 em{font-style:italic;color:var(--brass-soft)}
+  .hero p{max-width:52ch;font-size:1.12rem;color:rgba(250,248,243,.85);font-weight:300}
+  .hero-ctas{display:flex;gap:1rem;margin-top:2.4rem;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:500;
+    padding:.95rem 1.9rem;border-radius:999px;font-size:.98rem;transition:transform .2s,background .2s,color .2s;
+  }
+  .btn-brass{background:var(--brass);color:#fff}
+  .btn-brass:hover{background:var(--brass-soft);transform:translateY(-2px)}
+  .btn-ghost{border:1.5px solid rgba(250,248,243,.5);color:var(--warm-white)}
+  .btn-ghost:hover{border-color:var(--warm-white);transform:translateY(-2px)}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green-deep);transform:translateY(-2px)}
+  .hero-strip{
+    position:relative;z-index:2;margin-top:4rem;display:flex;gap:2.5rem;flex-wrap:wrap;
+    border-top:1px solid rgba(250,248,243,.2);padding-top:1.6rem;
+    font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,248,243,.65);
+  }
+
+  /* ---------- Intro ---------- */
+  .intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center}
+  @media(max-width:880px){.intro-grid{grid-template-columns:1fr;gap:2.5rem}}
+  .intro-card{
+    background:var(--stone);border-radius:var(--radius);padding:2.4rem;
+    display:grid;gap:1.6rem;
+  }
+  .intro-point{display:flex;gap:1.1rem;align-items:flex-start}
+  .intro-point svg{flex:0 0 auto;margin-top:.2rem}
+  .intro-point h3{font-size:1.15rem;margin-bottom:.25rem}
+  .intro-point p{font-size:.95rem;color:#5d574d}
+
+  /* ---------- Stats ---------- */
+  .stats{
+    background:var(--charcoal);color:var(--warm-white);
+    padding:3.4rem 0;
+  }
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+  @media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  .stat b{font-family:var(--font-display);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;color:var(--brass-soft);display:block}
+  .stat span{font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,248,243,.6)}
+
+  /* ---------- Featured ---------- */
+  .carousel{display:grid;grid-auto-flow:column;grid-auto-columns:min(340px,80vw);gap:1.4rem;overflow-x:auto;padding:0.5rem .2rem 1.4rem;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--stone-deep) transparent}
+  .carousel > *{scroll-snap-align:start}
+
+  /* ---------- Project cards ---------- */
+  .card{
+    background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+    transition:transform .25s,box-shadow .25s;cursor:pointer;border:0;text-align:left;
+    font-family:inherit;font-size:inherit;color:inherit;padding:0;display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+  .card-img{aspect-ratio:4/3;position:relative;overflow:hidden}
+  .card-img svg{width:100%;height:100%}
+  .pc-chip{
+    position:absolute;top:1rem;left:1rem;font-family:var(--font-display);
+    background:rgba(250,248,243,.92);color:var(--green);border-radius:8px;
+    padding:.3rem .7rem;font-size:1.02rem;letter-spacing:.03em;
+  }
+  .tag{
+    position:absolute;bottom:1rem;right:1rem;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+    background:var(--green);color:#fff;padding:.32rem .75rem;border-radius:999px;font-weight:600;
+  }
+  .card-body{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+  .card-body h3{font-size:1.28rem}
+  .card-body .loc{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600}
+  .card-body p{font-size:.94rem;color:#5d574d}
+
+  /* ---------- Filters ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:.6rem;margin:2rem 0 2.4rem}
+  .filters span{align-self:center;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8375;margin-right:.4rem}
+  .chip{
+    border:1.5px solid var(--stone-deep);background:transparent;border-radius:999px;
+    padding:.5rem 1.15rem;font-family:inherit;font-size:.88rem;font-weight:500;color:var(--ink);
+    cursor:pointer;transition:all .2s;
+  }
+  .chip:hover{border-color:var(--green)}
+  .chip.active{background:var(--green);border-color:var(--green);color:#fff}
+  .grid-projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.6rem}
+  .hidden{display:none!important}
+
+  /* ---------- Heritage ---------- */
+  .heritage{background:var(--stone)}
+  .heritage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:2.2rem}
+  .h-item{
+    background:var(--warm-white);border-radius:10px;padding:1.2rem 1.3rem;
+    border-left:3px solid var(--brass);
+  }
+  .h-item b{font-family:var(--font-display);font-weight:500;font-size:1.05rem;color:var(--charcoal);display:block}
+  .h-item span{font-size:.86rem;color:#6a6357}
+  .heritage-note{margin-top:2rem;font-style:italic;color:#6a6357;font-family:var(--font-display);font-size:1.1rem;max-width:60ch}
+
+  /* ---------- Services ---------- */
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2.5rem}
+  .svc{
+    background:#fff;border-radius:var(--radius);padding:2rem 1.9rem;box-shadow:var(--shadow);
+    transition:transform .25s;
+  }
+  .svc:hover{transform:translateY(-4px)}
+  .svc svg{margin-bottom:1.1rem}
+  .svc h3{font-size:1.25rem;margin-bottom:.5rem}
+  .svc p{font-size:.93rem;color:#5d574d}
+
+  /* ---------- Approach ---------- */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:2.6rem;counter-reset:step}
+  @media(max-width:880px){.steps{grid-template-columns:1fr;gap:0}}
+  .step{position:relative;padding:0 1.4rem 0 0}
+  .step::before{
+    counter-increment:step;content:"0" counter(step);
+    font-family:var(--font-display);font-size:2rem;color:var(--brass);display:block;margin-bottom:.4rem;
+  }
+  .step h3{font-size:1.05rem;margin-bottom:.3rem}
+  .step p{font-size:.88rem;color:#5d574d}
+  .step:not(:last-child)::after{
+    content:"";position:absolute;top:1.1rem;right:.4rem;width:1rem;height:1.5px;background:var(--stone-deep);
+  }
+  @media(max-width:880px){
+    .step{padding:1.2rem 0;border-bottom:1px solid var(--stone-deep)}
+    .step::after{display:none}
+  }
+
+  /* ---------- Areas ---------- */
+  .areas{background:var(--green);color:var(--warm-white)}
+  .areas h2,.areas h3{color:var(--warm-white)}
+  .areas .lede{color:rgba(250,248,243,.8)}
+  .area-cloud{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.4rem;max-width:900px}
+  .area-pill{
+    border:1px solid rgba(250,248,243,.35);border-radius:999px;padding:.55rem 1.25rem;
+    font-size:.95rem;transition:all .25s;cursor:default;
+  }
+  .area-pill:hover{background:var(--brass);border-color:var(--brass);transform:translateY(-2px)}
+  .area-pill small{opacity:.65;margin-left:.45rem;font-family:var(--font-display);font-style:italic}
+
+  /* ---------- Testimonials ---------- */
+  .quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2.4rem}
+  .quote{
+    background:#fff;border-radius:var(--radius);padding:2.1rem;box-shadow:var(--shadow);
+  }
+  .quote p{font-family:var(--font-display);font-size:1.22rem;color:var(--charcoal);line-height:1.45}
+  .quote p::before{content:"“";color:var(--brass);font-size:1.6em;line-height:0;vertical-align:-0.28em;margin-right:.1em}
+  .quote footer{margin-top:1.2rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600}
+
+  /* ---------- CTA banner ---------- */
+  .cta-banner{
+    background:linear-gradient(120deg,var(--charcoal),#33302a);color:var(--warm-white);
+    border-radius:calc(var(--radius) + 6px);padding:clamp(2.5rem,6vw,4.5rem);
+    display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;
+  }
+  .cta-banner h2{color:var(--warm-white);margin:0;max-width:18ch}
+  .cta-banner em{color:var(--brass-soft)}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;margin-top:2.5rem}
+  @media(max-width:880px){.contact-grid{grid-template-columns:1fr}}
+  .c-detail{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid var(--stone-deep)}
+  .c-detail svg{flex:0 0 auto;margin-top:.15rem}
+  .c-detail b{display:block;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:.15rem}
+  .c-detail a{text-decoration:none}
+  .c-detail a:hover{color:var(--green)}
+  .map-placeholder{
+    margin-top:1.6rem;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+    aspect-ratio:16/9;background:var(--stone);
+  }
+  form{background:#fff;border-radius:var(--radius);padding:2.3rem;box-shadow:var(--shadow);display:grid;gap:1.1rem}
+  label{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--charcoal)}
+  input,textarea{
+    width:100%;margin-top:.4rem;padding:.85rem 1rem;border:1.5px solid var(--stone-deep);
+    border-radius:10px;font-family:inherit;font-size:.98rem;background:var(--warm-white);
+    transition:border-color .2s;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--green)}
+  .form-note{font-size:.82rem;color:#8a8375}
+
+  /* ---------- Footer ---------- */
+  footer.site{
+    background:var(--charcoal);color:rgba(250,248,243,.75);padding:3.5rem 0 2rem;font-size:.9rem;
+  }
+  .foot-grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-bottom:2rem;border-bottom:1px solid rgba(250,248,243,.12)}
+  footer .logo{color:var(--warm-white)}
+  footer .logo b{color:var(--brass-soft)}
+  .foot-links{list-style:none;display:flex;gap:1.6rem;flex-wrap:wrap}
+  .foot-links a{text-decoration:none;transition:color .2s}
+  .foot-links a:hover{color:var(--brass-soft)}
+  .foot-legal{padding-top:1.6rem;font-size:.8rem;color:rgba(250,248,243,.5);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+  /* ---------- Cookie notice ---------- */
+  .cookie{
+    position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:80;
+    background:var(--charcoal);color:var(--warm-white);border-radius:14px;
+    padding:1rem 1.4rem;display:flex;gap:1.2rem;align-items:center;box-shadow:var(--shadow-lg);
+    width:min(640px,92%);font-size:.88rem;
+  }
+  .cookie button{
+    background:var(--brass);border:0;color:#fff;font-family:inherit;font-weight:600;
+    padding:.55rem 1.2rem;border-radius:999px;cursor:pointer;font-size:.85rem;white-space:nowrap;
+  }
+  .cookie button:hover{background:var(--brass-soft)}
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position:fixed;inset:0;z-index:90;background:rgba(24,22,18,.78);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:1.5rem;
+  }
+  .lightbox.open{display:flex}
+  .lb-card{
+    background:var(--warm-white);border-radius:var(--radius);max-width:640px;width:100%;
+    max-height:88vh;overflow:auto;position:relative;
+  }
+  .lb-card .card-img{aspect-ratio:16/9}
+  .lb-body{padding:1.8rem 2rem 2.2rem}
+  .lb-body h3{font-size:1.7rem;margin-bottom:.3rem}
+  .lb-close{
+    position:absolute;top:.9rem;right:.9rem;z-index:2;background:rgba(250,248,243,.94);border:0;
+    width:38px;height:38px;border-radius:50%;font-size:1.15rem;cursor:pointer;color:var(--charcoal);
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Main navigation">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">LA <b>Homes</b> Cheshire<small>Property Developers</small></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#areas">Areas</a></li>
+      <li><a class="nav-cta" href="#contact">Get in Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-postcodes" aria-hidden="true">SK8<br>M44<br>CW12<br>WA16</div>
+  <svg class="hero-art" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g fill="none" stroke="#FAF8F3" stroke-width="1.5">
+      <path d="M60 560 V400 L180 320 L300 400 V560"/>
+      <path d="M330 560 V430 L420 370 L510 430 V560"/>
+      <path d="M540 560 V380 h200 V560"/><path d="M540 380 L640 310 L740 380"/>
+      <path d="M780 560 V420 L900 340 L1020 420 V560"/>
+      <path d="M1050 560 V450 h130 V560"/><path d="M1050 450 L1115 405 L1180 450"/>
+      <line x1="0" y1="560" x2="1200" y2="560"/>
+      <rect x="110" y="440" width="40" height="55"/><rect x="200" y="440" width="40" height="55"/>
+      <rect x="380" y="460" width="34" height="48"/>
+      <rect x="580" y="430" width="36" height="60"/><rect x="670" y="430" width="36" height="60"/>
+      <rect x="850" y="460" width="42" height="60"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Independent developer · Est. track record since 2008</p>
+    <h1>Quality homes, built with <em>pride</em> in Manchester &amp; Cheshire</h1>
+    <p>We own every site we build on and deliver every project ourselves — on time, to the highest standard, with meticulous attention to detail.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-brass" href="#projects">View Our Projects</a>
+      <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+    </div>
+    <div class="hero-strip">
+      <span>New builds</span><span>Renovations</span><span>Extensions</span><span>Conversions</span><span>Planning in-house</span>
+    </div>
+  </div>
+</header>
+
+<!-- Intro -->
+<section id="about">
+  <div class="wrap intro-grid">
+    <div class="reveal">
+      <p class="eyebrow">Who we are</p>
+      <h2>An independent developer with everything in-house</h2>
+      <p class="lede">LA Homes Cheshire Ltd owns all of its sites and carries out every project for itself — no shortcuts, no middlemen. We pride ourselves on completing projects on time with high quality and attention to detail, supported by a dedicated team of professionals: project managers, architects, planners and structural engineers.</p>
+      <p class="lede" style="margin-top:1rem">From land acquisition through planning, build and landscaping, every stage is handled by the same team — which is how we keep our standards consistent and our promises kept.</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="intro-point">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
+        <div><h3>We own our sites</h3><p>Every development is on land we own — we build for ourselves, so quality is never negotiable.</p></div>
+      </div>
+      <div class="intro-point">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div><h3>On-time delivery</h3><p>A record of completing projects on schedule, from single bungalows to multi-home developments.</p></div>
+      </div>
+      <div class="intro-point">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>
+        <div><h3>In-house professionals</h3><p>Project managers, architects, planners and structural engineers on one dedicated team.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat reveal"><b data-count="18">0</b><span>Years of experience</span></div>
+    <div class="stat reveal"><b data-count="21">0</b><span>Projects showcased</span></div>
+    <div class="stat reveal"><b data-count="17">0</b><span>Towns &amp; districts covered</span></div>
+    <div class="stat reveal"><b>100%</b><span>Sites owned by us</span></div>
+  </div>
+</div>
+
+<!-- Featured -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow reveal">Featured work</p>
+    <h2 class="reveal">Recent highlights</h2>
+    <div class="carousel reveal" id="featured" aria-label="Featured projects"></div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow reveal">Portfolio</p>
+    <h2 class="reveal">Projects in Manchester &amp; Cheshire</h2>
+    <p class="lede reveal">New-build homes, renovations, extensions and conversions — each one designed, planned and delivered by our own team.</p>
+
+    <div class="filters reveal" role="group" aria-label="Filter by project type">
+      <span>Type</span>
+      <button class="chip active" data-type="all">All</button>
+      <button class="chip" data-type="new-build">New Build</button>
+      <button class="chip" data-type="renovation">Renovation</button>
+      <button class="chip" data-type="extension">Extension</button>
+      <button class="chip" data-type="conversion">Conversion</button>
+    </div>
+    <div class="filters reveal" style="margin-top:-1.4rem" role="group" aria-label="Filter by area">
+      <span>Area</span>
+      <button class="chip active" data-area="all">All areas</button>
+      <button class="chip" data-area="cheshire">Cheshire</button>
+      <button class="chip" data-area="manchester">Manchester</button>
+      <button class="chip" data-area="stockport">Stockport</button>
+    </div>
+
+    <div class="grid-projects" id="grid"></div>
+  </div>
+</section>
+
+<!-- Heritage -->
+<section class="heritage">
+  <div class="wrap">
+    <p class="eyebrow reveal">Track record · 2008–2010</p>
+    <h2 class="reveal">Where it began: our Manchester heritage</h2>
+    <p class="lede reveal">Between 2008 and 2010, a first wave of renovations and conversions across Manchester built the foundations of the company — every home finished to the highest standard.</p>
+    <div class="heritage-grid reveal" id="heritage"></div>
+    <p class="heritage-note reveal">These represent only a selection of our completed projects — many more have been delivered across Manchester and Cheshire.</p>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="wrap">
+    <p class="eyebrow reveal">What we do</p>
+    <h2 class="reveal">Services</h2>
+    <div class="svc-grid">
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
+        <h3>Land acquisition &amp; development</h3><p>We identify, acquire and develop our own sites — from single plots to multi-home developments.</p>
+      </div>
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><path d="M2 20h20M4 20V10l8-6 8 6v10"/><rect x="10" y="14" width="4" height="6"/></svg>
+        <h3>New-build homes</h3><p>Detached houses and bungalows built from scratch, with landscaping and gardens designed in from day one.</p>
+      </div>
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        <h3>Full renovations</h3><p>Whole-house renovations to the highest standard — including large period farmhouses and family homes.</p>
+      </div>
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><path d="M4 20V8h10v12M14 12h6v8M4 20h18"/></svg>
+        <h3>House extensions</h3><p>Large, well-integrated extensions that add space and value without compromising character.</p>
+      </div>
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 9h16M4 15h16"/></svg>
+        <h3>Conversions to flats</h3><p>Converting houses into high-standard apartments — three- and four-flat schemes delivered across Manchester.</p>
+      </div>
+      <div class="svc reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B08D46" stroke-width="1.8" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+        <h3>Planning &amp; architecture</h3><p>In-house planners, architects and structural engineers take schemes from consent to completion.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:4.5rem">
+      <p class="eyebrow reveal">Our approach</p>
+      <div class="steps reveal">
+        <div class="step"><h3>Land acquisition</h3><p>We source and secure the right sites ourselves.</p></div>
+        <div class="step"><h3>Planning</h3><p>In-house planners and architects design and gain consent.</p></div>
+        <div class="step"><h3>Build</h3><p>Our own team delivers the construction, start to finish.</p></div>
+        <div class="step"><h3>Landscaping</h3><p>Gardens and grounds finished to match the home.</p></div>
+        <div class="step"><h3>Completion</h3><p>Handed over on time, to the highest standard.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Areas -->
+<section class="areas" id="areas">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="color:var(--brass-soft)">Where we work</p>
+    <h2 class="reveal">Areas we cover</h2>
+    <p class="lede reveal">From the Cheshire villages to the heart of Greater Manchester — if it's in the North West, chances are we've built nearby.</p>
+    <div class="area-cloud reveal" id="areas-cloud"></div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow reveal">Kind words</p>
+    <h2 class="reveal">What people say</h2>
+    <div class="quote-grid">
+      <blockquote class="quote reveal"><p>Finished on time, exactly as promised — and the attention to detail throughout was exceptional.</p><footer>Client testimonial — placeholder</footer></blockquote>
+      <blockquote class="quote reveal"><p>Having planners and architects on one team made the whole process seamless from start to finish.</p><footer>Client testimonial — placeholder</footer></blockquote>
+      <blockquote class="quote reveal"><p>The quality of the build and the landscaping speaks for itself. A developer that genuinely cares.</p><footer>Client testimonial — placeholder</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CTA banner -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <h2>Have a site, a project or a <em>question</em>?</h2>
+      <a class="btn btn-brass" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow reveal">Contact</p>
+    <h2 class="reveal">Talk to us</h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="c-detail">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div><b>Address</b>Unit 2 Brook House, Old Wool Lane,<br>Cheadle, Cheshire, SK8 2PE</div>
+        </div>
+        <div class="c-detail">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
+          <div><b>Telephone</b><a href="tel:01614285000">0161 428 5000</a></div>
+        </div>
+        <div class="c-detail">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+          <div><b>Email</b><a href="mailto:ali@lahomescheshire.com">ali@lahomescheshire.com</a></div>
+        </div>
+        <div class="c-detail" style="border-bottom:0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E4636" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div><b>Business hours</b>Monday – Friday, 9:00 am – 5:00 pm <span style="color:#8a8375">(placeholder)</span></div>
+        </div>
+        <div class="map-placeholder" role="img" aria-label="Map placeholder — Cheadle, Cheshire SK8 2PE">
+          <!-- Replace this block with an embedded Google Map iframe for SK8 2PE -->
+          <svg viewBox="0 0 640 360" width="100%" height="100%" aria-hidden="true">
+            <rect width="640" height="360" fill="#ECE6DA"/>
+            <g stroke="#DDD4C3" stroke-width="2">
+              <path d="M0 120 C160 100 300 160 640 130"/><path d="M0 230 C220 260 420 210 640 250"/>
+              <path d="M180 0 C200 140 160 250 190 360"/><path d="M430 0 C410 120 460 260 440 360"/>
+            </g>
+            <g transform="translate(320,168)">
+              <path d="M0 26 C-14 8 -14 -8 0 -18 C14 -8 14 8 0 26z" fill="#2E4636"/>
+              <circle cx="0" cy="-4" r="6" fill="#FAF8F3"/>
+            </g>
+            <text x="320" y="228" text-anchor="middle" font-family="Outfit,sans-serif" font-size="15" fill="#6a6357" letter-spacing="2">CHEADLE · SK8 2PE — embed Google Map here</text>
+          </svg>
+        </div>
+      </div>
+      <form class="reveal" onsubmit="event.preventDefault();this.reportValidity()&&alert('Thank you — connect this form to your email or CRM to receive enquiries.');">
+        <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="5" required></textarea></div>
+        <button class="btn btn-green" type="submit" style="border:0;cursor:pointer;justify-content:center">Send enquiry</button>
+        <p class="form-note">We'll only use your details to respond to your enquiry.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="logo" href="#top">LA <b>Homes</b> Cheshire<small>Property Developers</small></a>
+      <ul class="foot-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#areas">Areas</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-legal">
+      <span>Registered Office: Unit 2 Brook House, Old Wool Lane, Cheadle, Cheshire SK8 2PE · Company Registration No. 931 7929</span>
+      <span>© <span id="yr"></span> LA Homes Cheshire Ltd</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cookie notice -->
+<div class="cookie" id="cookie" role="region" aria-label="Cookie notice">
+  <span>We use essential cookies to make this site work. No tracking, no fuss.</span>
+  <button id="cookie-ok">Got it</button>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title">
+  <div class="lb-card">
+    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    <div class="card-img" id="lb-img"></div>
+    <div class="lb-body">
+      <p class="loc" id="lb-loc" style="font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600"></p>
+      <h3 id="lb-title"></h3>
+      <p id="lb-desc" style="margin-top:.6rem;color:#5d574d"></p>
+      <p style="margin-top:1.2rem;font-size:.85rem;color:#8a8375;font-style:italic">Photography coming soon — replace this illustration with project photos.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Data ---------- */
+const projects = [
+  {title:"Fairfield Road Development", loc:"Cadishead · M44 5HX", pc:"M44", type:"new-build", area:"manchester",
+   desc:"Development of three new five-bedroom dwellings on land adjacent to 11 Fairfield Road. Completed in 2022.", tone:0, featured:true},
+  {title:"Windsor Avenue Scheme", loc:"Irlam · M44 6HP", pc:"M44", type:"new-build", area:"manchester",
+   desc:"Planning consent granted for four 4-bed detached houses with integral garages, landscaping and good-sized gardens.", tone:1, featured:true},
+  {title:"Tennyson Close Bungalow", loc:"Macclesfield · Cheshire", pc:"SK10", type:"new-build", area:"cheshire",
+   desc:"A three-bedroom detached bungalow, built from scratch.", tone:2},
+  {title:"Edinburgh Road Bungalow", loc:"Congleton · Cheshire", pc:"CW12", type:"new-build", area:"cheshire",
+   desc:"A two-bedroom detached bungalow, built from scratch.", tone:3},
+  {title:"Knutsford Road House", loc:"Chelford · Cheshire", pc:"SK11", type:"new-build", area:"cheshire",
+   desc:"A four-bedroom detached three-storey modern house.", tone:1, featured:true},
+  {title:"Roundhey House", loc:"Heald Green · Stockport", pc:"SK8", type:"new-build", area:"stockport",
+   desc:"A two-bedroom detached house, built from scratch.", tone:0},
+  {title:"Cheadle Wood", loc:"Cheadle Hulme · SK8 6SS", pc:"SK8", type:"new-build", area:"stockport",
+   desc:"A 2,000 sq ft build with landscaped garden; project value over £300,000. Completed on time in 2017.", tone:2, featured:true},
+  {title:"Belfry Close Extension", loc:"Wilmslow · Cheshire", pc:"SK9", type:"extension", area:"cheshire",
+   desc:"A large house extension delivered at a Wilmslow home in Cheshire.", tone:3},
+  {title:"Longcroft Lane Farmhouse", loc:"Cheadle Hulme · SK8 6SD", pc:"SK8", type:"renovation", area:"stockport",
+   desc:"Renovation of a five-bedroom detached farmhouse of over 4,000 sq ft, with one acre of landscaped garden. Project value over £250,000. Completed 2014.", tone:0}
+];
+
+const heritage = [
+  ["1–1A Lawton Avenue, Moston","Full renovation to the highest standard"],
+  ["23 Ringley Street, Moston","Full renovation to the highest standard"],
+  ["3 Pym Street, Moston","Full renovation to the highest standard"],
+  ["8 Dorset Avenue, Cheadle Hulme SK8 5QP","Full renovation to the highest standard"],
+  ["43 Longcroft Lane, Cheadle Hulme SK8 6SD","Full renovation to the highest standard"],
+  ["118 Cambridge Street, Stalybridge SK15","Full renovation to the highest standard"],
+  ["35 Booth Street, Ashton-under-Lyne OL6 7LB","Converted to three high-standard flats"],
+  ["81 Goodman Street, Moston M9 4FD","Converted to three high-standard flats"],
+  ["38 Agnes Street, Levenshulme M19","Converted to four high-standard flats"],
+  ["1 Grasmere Street, Longsight M12 5TD","Full renovation to the highest standard"],
+  ["1327 Ashton Road, Openshaw M11 1NX","Shop converted to takeaway; first-floor flat renovated"],
+  ["284 Barlow Road, Manchester M12","Full renovation to the highest standard"]
+];
+
+const areas = [
+  ["Cheadle","SK8"],["Cheadle Hulme","SK8"],["Wilmslow","SK9"],["Macclesfield","SK10"],
+  ["Congleton","CW12"],["Chelford","SK11"],["Heald Green","SK8"],["Stockport","SK"],
+  ["Irlam","M44"],["Cadishead","M44"],["Moston","M9"],["Levenshulme","M19"],
+  ["Longsight","M12"],["Openshaw","M11"],["Stalybridge","SK15"],["Ashton-under-Lyne","OL6"],
+  ["Greater Manchester","M"]
+];
+
+const typeLabel = {"new-build":"New Build","renovation":"Renovation","extension":"Extension","conversion":"Conversion"};
+
+/* ---------- Illustration placeholders (swap for real photos) ---------- */
+const tones = [
+  ["#3B5A45","#2E4636"], ["#5C6B57","#43503F"], ["#8A7C5E","#6E6248"], ["#4E5A66","#3A444E"]
+];
+function houseSVG(tone, seed){
+  const [a,b] = tones[tone % tones.length];
+  const gid = "g" + seed;
+  return `<svg viewBox="0 0 400 300" role="img" aria-label="Illustrative placeholder — real photography to follow" preserveAspectRatio="xMidYMid slice">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
+    <rect width="400" height="300" fill="url(#${gid})"/>
+    <g fill="none" stroke="rgba(250,248,243,.55)" stroke-width="2">
+      <path d="M70 230 V150 L200 ${70 + (seed*13)%30} L330 150 V230 Z"/>
+      <rect x="110" y="170" width="42" height="60"/>
+      <rect x="248" y="170" width="42" height="60"/>
+      <rect x="182" y="180" width="36" height="50"/>
+      <line x1="40" y1="230" x2="360" y2="230"/>
+      <path d="M50 230 q10 -22 20 0 M330 230 q10 -22 20 0" stroke="rgba(250,248,243,.35)"/>
+    </g>
+    <circle cx="${330 - (seed*17)%40}" cy="60" r="18" fill="none" stroke="rgba(250,248,243,.3)" stroke-width="2"/>
+  </svg>`;
+}
+
+/* ---------- Render cards ---------- */
+function cardHTML(p, i){
+  return `<button class="card" data-type="${p.type}" data-area="${p.area}" data-i="${i}" aria-haspopup="dialog">
+    <div class="card-img">${houseSVG(p.tone, i+1)}
+      <span class="pc-chip">${p.pc}</span>
+      <span class="tag">${typeLabel[p.type]}</span>
+    </div>
+    <div class="card-body">
+      <span class="loc">${p.loc}</span>
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+    </div>
+  </button>`;
+}
+const grid = document.getElementById("grid");
+grid.innerHTML = projects.map(cardHTML).join("");
+document.getElementById("featured").innerHTML =
+  projects.map((p,i)=>({p,i})).filter(x=>x.p.featured).map(x=>cardHTML(x.p,x.i)).join("");
+
+document.getElementById("heritage").innerHTML =
+  heritage.map(h=>`<div class="h-item"><b>${h[0]}</b><span>${h[1]}</span></div>`).join("");
+
+document.getElementById("areas-cloud").innerHTML =
+  areas.map(a=>`<span class="area-pill">${a[0]}<small>${a[1]}</small></span>`).join("");
+
+/* ---------- Filters ---------- */
+let curType="all", curArea="all";
+function applyFilters(){
+  grid.querySelectorAll(".card").forEach(c=>{
+    const okT = curType==="all" || c.dataset.type===curType;
+    const okA = curArea==="all" || c.dataset.area===curArea;
+    c.classList.toggle("hidden", !(okT && okA));
+  });
+}
+document.querySelectorAll(".chip[data-type]").forEach(b=>b.addEventListener("click",()=>{
+  curType=b.dataset.type;
+  document.querySelectorAll(".chip[data-type]").forEach(x=>x.classList.toggle("active",x===b));
+  applyFilters();
+}));
+document.querySelectorAll(".chip[data-area]").forEach(b=>b.addEventListener("click",()=>{
+  curArea=b.dataset.area;
+  document.querySelectorAll(".chip[data-area]").forEach(x=>x.classList.toggle("active",x===b));
+  applyFilters();
+}));
+
+/* ---------- Lightbox ---------- */
+const lb=document.getElementById("lightbox");
+let lastFocus=null;
+document.addEventListener("click",e=>{
+  const card=e.target.closest(".card");
+  if(card && card.dataset.i!==undefined){
+    const p=projects[+card.dataset.i];
+    lastFocus=card;
+    document.getElementById("lb-img").innerHTML=houseSVG(p.tone,+card.dataset.i+1);
+    document.getElementById("lb-loc").textContent=p.loc+" · "+typeLabel[p.type];
+    document.getElementById("lb-title").textContent=p.title;
+    document.getElementById("lb-desc").textContent=p.desc;
+    lb.classList.add("open");
+    document.getElementById("lb-close").focus();
+  }
+});
+function closeLB(){lb.classList.remove("open"); if(lastFocus)lastFocus.focus();}
+document.getElementById("lb-close").addEventListener("click",closeLB);
+lb.addEventListener("click",e=>{if(e.target===lb)closeLB();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))closeLB();});
+
+/* ---------- Nav ---------- */
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>20),{passive:true});
+const burger=document.getElementById("burger"), links=document.getElementById("navlinks");
+burger.addEventListener("click",()=>{
+  const open=links.classList.toggle("open");
+  burger.setAttribute("aria-expanded",open);
+});
+links.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>links.classList.remove("open")));
+
+/* ---------- Reveal on scroll ---------- */
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(reduce){document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));}
+else{
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}
+  }),{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+}
+
+/* ---------- Count-up stats ---------- */
+if(!reduce){
+  const cio=new IntersectionObserver(es=>es.forEach(en=>{
+    if(!en.isIntersecting)return;
+    const el=en.target, target=+el.dataset.count, t0=performance.now();
+    (function tick(t){
+      const k=Math.min(1,(t-t0)/1100);
+      el.textContent=Math.round(target*(1-Math.pow(1-k,3)))+"+";
+      if(k<1)requestAnimationFrame(tick);
+    })(t0);
+    cio.unobserve(el);
+  }),{threshold:.5});
+  document.querySelectorAll("[data-count]").forEach(el=>cio.observe(el));
+}else{
+  document.querySelectorAll("[data-count]").forEach(el=>el.textContent=el.dataset.count+"+");
+}
+
+/* ---------- Cookie ---------- */
+document.getElementById("cookie-ok").addEventListener("click",()=>{
+  document.getElementById("cookie").style.display="none";
+});
+
+document.getElementById("yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

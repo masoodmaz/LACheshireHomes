@@ -1,0 +1,153 @@
+<div class="intro-wipe" aria-hidden="true"></div>
+
+<header class="hero" id="top">
+  <div class="hero-postcodes" aria-hidden="true">SK8<br>M44<br>CW12<br>WA16</div>
+
+  <svg class="hero-art" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g fill="none" stroke="#FAF8F3" stroke-width="1.5">
+      <path class="draw d1" d="M60 560 V400 L180 320 L300 400 V560"/>
+      <path class="draw d2" d="M330 560 V430 L420 370 L510 430 V560"/>
+      <path class="draw d3" d="M540 560 V380 h200 V560"/>
+      <path class="draw d3" d="M540 380 L640 310 L740 380"/>
+      <path class="draw d4" d="M780 560 V420 L900 340 L1020 420 V560"/>
+      <path class="draw d5" d="M1050 560 V450 h130 V560"/>
+      <path class="draw d5" d="M1050 450 L1115 405 L1180 450"/>
+      <line class="draw d1" x1="0" y1="560" x2="1200" y2="560"/>
+      <rect class="draw d4" x="110" y="440" width="40" height="55"/>
+      <rect class="draw d4" x="200" y="440" width="40" height="55"/>
+      <rect class="draw d5" x="380" y="460" width="34" height="48"/>
+      <rect class="draw d5" x="580" y="430" width="36" height="60"/>
+      <rect class="draw d5" x="670" y="430" width="36" height="60"/>
+      <rect class="draw d5" x="850" y="460" width="42" height="60"/>
+    </g>
+  </svg>
+
+  <div class="hero-dust" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="container hero-inner">
+    <p class="eyebrow rise r1">Independent developer &middot; Manchester &amp; Cheshire</p>
+    <h1 class="cascade" aria-label="Quality homes, built with pride in Manchester and Cheshire">
+      <span class="w"><span>Quality</span></span>
+      <span class="w"><span>homes,</span></span>
+      <span class="w"><span>built</span></span>
+      <span class="w"><span>with</span></span>
+      <span class="w wem"><span><em>pride</em></span></span>
+      <span class="w"><span>in</span></span>
+      <span class="w"><span>Manchester</span></span>
+      <span class="w"><span>&amp;</span></span>
+      <span class="w"><span>Cheshire</span></span>
+    </h1>
+    <p class="lead rise r3">We own every site we build on and deliver every project ourselves &mdash; on time, to the highest standard, with meticulous attention to detail.</p>
+    <div class="hero-actions rise r4">
+      <a class="button primary sheen" href="/projects">See our latest projects</a>
+      <a class="button ghost" href="/contact">Get in touch</a>
+    </div>
+  </div>
+
+  <a class="hero-scroll" href="#about" aria-label="Scroll to content"><span></span></a>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>New builds</span><i>&#9670;</i><span>Renovations</span><i>&#9670;</i><span>Extensions</span><i>&#9670;</i><span>Conversions</span><i>&#9670;</i><span>Planning in-house</span><i>&#9670;</i><span>Sites we own</span><i>&#9670;</i>
+    <span>New builds</span><i>&#9670;</i><span>Renovations</span><i>&#9670;</i><span>Extensions</span><i>&#9670;</i><span>Conversions</span><i>&#9670;</i><span>Planning in-house</span><i>&#9670;</i><span>Sites we own</span><i>&#9670;</i>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div class="stat reveal"><b data-count="<%= new Date().getFullYear() - 2008 %>">0</b><span>Years of experience</span></div>
+    <div class="stat reveal"><b data-count="<%= projectCount %>">0</b><span>Projects showcased</span></div>
+    <div class="stat reveal"><b data-count="17">0</b><span>Towns &amp; districts covered</span></div>
+    <div class="stat reveal"><b>100%</b><span>Sites owned by us</span></div>
+  </div>
+</div>
+
+<section class="container section" id="about">
+  <div class="intro-grid">
+    <div class="reveal">
+      <p class="eyebrow">Who we are</p>
+      <h2>An independent developer with everything in-house</h2>
+      <p class="lede">LA Homes Cheshire Ltd owns all of its sites and carries out every project for itself &mdash;
+        no shortcuts, no middlemen. We pride ourselves on completing projects on time with high quality and
+        attention to detail, supported by a dedicated team of professionals: project managers, architects,
+        planners and structural engineers.</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="intro-point">
+        <h3>We own our sites</h3>
+        <p>Every development is on land we own &mdash; we build for ourselves, so quality is never negotiable.</p>
+      </div>
+      <div class="intro-point">
+        <h3>On-time delivery</h3>
+        <p>A record of completing projects on schedule, from single bungalows to multi-home developments.</p>
+      </div>
+      <div class="intro-point">
+        <h3>In-house professionals</h3>
+        <p>Project managers, architects, planners and structural engineers on one dedicated team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="latest">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">Latest work</p>
+      <h2>Our latest projects</h2>
+    </div>
+    <a href="/projects">View all latest projects &rarr;</a>
+  </div>
+  <% if (!latestProjects.length) { %>
+    <p class="subtle reveal">No projects published yet. Check back soon.</p>
+  <% } else { %>
+    <div class="card-grid stagger tilt-reveal">
+      <% latestProjects.forEach(project => { %>
+        <div class="reveal">
+          <%- include("partials/property-card", { project }) %>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+  <div class="section-cta reveal">
+    <a class="button primary sheen" href="/projects">See our latest projects</a>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-heading reveal">
+    <h2>Latest from the blog</h2>
+    <a href="/blog">See all posts &rarr;</a>
+  </div>
+  <% if (!latestPosts.length) { %>
+    <p class="subtle reveal">No blog posts published yet.</p>
+  <% } else { %>
+    <div class="card-grid stagger tilt-reveal">
+      <% latestPosts.forEach(post => { %>
+        <a class="card reveal" href="/blog/<%= post.slug %>">
+          <div class="card-media">
+            <% if (post.cover_image) { %>
+              <img src="<%= post.cover_image %>" alt="<%= post.title %>" loading="lazy">
+            <% } else { %>
+              <div class="card-media placeholder"></div>
+            <% } %>
+          </div>
+          <div class="card-body">
+            <h3><%= post.title %></h3>
+            <p><%= post.excerpt %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<section class="cta-section">
+  <div class="container cta-banner reveal">
+    <h2>Have a site, a project or a <em>question</em>?</h2>
+    <a class="button primary sheen" href="/contact">Get in touch</a>
+  </div>
+</section>

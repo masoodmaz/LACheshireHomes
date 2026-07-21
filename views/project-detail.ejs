@@ -1,0 +1,61 @@
+<%
+  const embedUrl = project.video_url ? embedUrlFor(project.video_url) : null;
+%>
+<section class="container section project-detail">
+  <a class="back-link" href="/projects">&larr; All projects</a>
+  <div class="project-heading">
+    <span class="badge status-<%= project.status %>"><%= project.status %></span>
+    <h1><%= project.title %></h1>
+    <p class="subtle"><%= project.location %></p>
+  </div>
+
+  <% if (images.length) { %>
+    <div class="detail-carousel carousel" data-carousel>
+      <div class="carousel-track">
+        <% images.forEach(image => { %>
+          <div class="carousel-slide">
+            <img src="<%= image.file_path %>" alt="<%= image.caption || project.title %>">
+          </div>
+        <% }) %>
+      </div>
+      <% if (images.length > 1) { %>
+        <button class="carousel-btn prev" type="button" data-carousel-prev aria-label="Previous photo">&#8249;</button>
+        <button class="carousel-btn next" type="button" data-carousel-next aria-label="Next photo">&#8250;</button>
+        <div class="carousel-dots" data-carousel-dots>
+          <% images.forEach((image, i) => { %>
+            <button type="button" class="carousel-dot <%= i === 0 ? 'active' : '' %>" data-carousel-dot="<%= i %>" aria-label="Photo <%= i + 1 %>"></button>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+
+  <% if (project.video_url) { %>
+    <div class="detail-video-link">
+      <% if (embedUrl) { %>
+        <button class="button secondary" type="button"
+          data-video-url="<%= project.video_url %>" data-video-embed="<%= embedUrl %>">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Watch project video
+        </button>
+      <% } else { %>
+        <a class="button secondary" href="<%= project.video_url %>" target="_blank" rel="noopener noreferrer">
+          Watch project video &rarr;
+        </a>
+      <% } %>
+    </div>
+  <% } %>
+
+  <div class="project-description">
+    <%- (project.description || "").replace(/\n/g, "<br>") %>
+  </div>
+
+  <% if (videos.length) { %>
+    <h2>Videos</h2>
+    <div class="video-grid">
+      <% videos.forEach(video => { %>
+        <video controls preload="metadata" src="<%= video.file_path %>"></video>
+      <% }) %>
+    </div>
+  <% } %>
+</section>

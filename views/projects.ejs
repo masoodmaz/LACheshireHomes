@@ -1,0 +1,44 @@
+<section class="container section">
+  <p class="eyebrow">Portfolio</p>
+  <h1>Projects in Manchester &amp; Cheshire</h1>
+  <p class="lede">New-build homes, renovations, extensions and conversions &mdash; each one designed, planned and
+    delivered by our own team.</p>
+
+  <div class="filter-row">
+    <a class="chip <%= !activeStatus ? 'active' : '' %>" href="/projects">All</a>
+    <a class="chip <%= activeStatus === 'ongoing' ? 'active' : '' %>" href="/projects?status=ongoing">Ongoing</a>
+    <a class="chip <%= activeStatus === 'upcoming' ? 'active' : '' %>" href="/projects?status=upcoming">Upcoming</a>
+    <a class="chip <%= activeStatus === 'completed' ? 'active' : '' %>" href="/projects?status=completed">Completed</a>
+  </div>
+
+  <% if (!projects.length) { %>
+    <p class="subtle">No projects match this filter yet.</p>
+  <% } else { %>
+    <div class="card-grid">
+      <% projects.forEach(project => { %>
+        <%- include("partials/property-card", { project }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<% if (heritage.length) { %>
+  <section class="heritage">
+    <div class="container">
+      <p class="eyebrow">Track record &middot; 2008&ndash;2010</p>
+      <h2>Where it began: our Manchester heritage</h2>
+      <p class="lede">Between 2008 and 2010, a first wave of renovations and conversions across Manchester built
+        the foundations of the company &mdash; every home finished to the highest standard.</p>
+      <div class="heritage-grid">
+        <% heritage.forEach(item => { %>
+          <div class="h-item">
+            <b><%= item.title %></b>
+            <span><%= item.summary || item.description %></span>
+          </div>
+        <% }) %>
+      </div>
+      <p class="heritage-note">These represent only a selection of our completed projects &mdash; many more have
+        been delivered across Manchester and Cheshire.</p>
+    </div>
+  </section>
+<% } %>

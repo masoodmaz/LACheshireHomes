@@ -1,0 +1,13 @@
+<div class="admin-bar">
+  <nav class="admin-nav">
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/projects">Projects</a>
+    <a href="/admin/blog">Blog</a>
+  </nav>
+  <div class="admin-user">
+    <span class="subtle"><%= admin.email %></span>
+    <form method="post" action="/auth/logout">
+      <button class="button ghost small" type="submit">Sign out</button>
+    </form>
+  </div>
+</div>

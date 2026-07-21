@@ -1,0 +1,15 @@
+<section class="container section blog-post">
+  <a class="back-link" href="/blog">&larr; All posts</a>
+  <h1><%= post.title %></h1>
+  <p class="subtle"><%= new Date(post.created_at).toLocaleDateString() %></p>
+
+  <% if (post.cover_image) { %>
+    <div class="project-cover">
+      <img src="<%= post.cover_image %>" alt="<%= post.title %>">
+    </div>
+  <% } %>
+
+  <div class="post-content">
+    <%- (post.content || "").replace(/\n/g, "<br>") %>
+  </div>
+</section>

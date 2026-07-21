@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+.gitkeep
+*.md
+.env
+.env.example
+data/*.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+start.bat
+start.ps1
+.DS_Store
+Thumbs.db
+docker-compose.yml
+Dockerfile
