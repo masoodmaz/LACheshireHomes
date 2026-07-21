@@ -1,0 +1,21 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is gitignored.
+
+aws_region        = "us-east-1"
+availability_zone = "us-east-1a"
+
+instance_name = "lacheshirehomes"
+bundle_id     = "micro_3_0" # 1GB RAM. Use "nano_3_0" for the cheapest ~$5 tier.
+blueprint_id  = "ubuntu_22_04"
+
+data_disk_size_gb = 20
+
+# Lock SSH to your own IP (find it: curl ifconfig.me), e.g. "203.0.113.4/32".
+allowed_ssh_cidr = "0.0.0.0/0"
+
+# Optional: auto-deploy from git on first boot.
+# For a PRIVATE repo, use a token URL:
+#   https://<TOKEN>@github.com/masoodmaz/LACheshireHomes.git
+# repo_url = ""
+
+# Optional: attach an existing Lightsail SSH key pair by name.
+# ssh_key_name = "my-lightsail-key"

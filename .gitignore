@@ -8,3 +8,12 @@ public/uploads/images/*
 public/uploads/videos/*
 !public/uploads/images/.gitkeep
 !public/uploads/videos/.gitkeep
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+terraform/terraform.tfvars
+crash.log
+*.tfvars.backup

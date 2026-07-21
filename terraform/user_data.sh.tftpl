@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# cloud-init bootstrap for the LA Cheshire Homes Lightsail instance.
+# Installs Docker + Compose, mounts the persistent data disk, and (optionally)
+# deploys the app from a git repo.
+set -euxo pipefail
+
+APP_DIR="/opt/${instance_name}"
+MOUNT_POINT="/opt/${instance_name}"
+
+#############################################
+# 1. Install Docker Engine + Compose plugin
+#############################################
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -y
+apt-get install -y ca-certificates curl git
+curl -fsSL https://get.docker.com | sh   # installs docker + compose plugin
+systemctl enable --now docker
+usermod -aG docker ubuntu || true
+
+#############################################
+# 2. Find, format (once) and mount the disk
+#############################################
+# Lightsail attaches the disk at /dev/xvdf, but Nitro hosts may expose it as
+# an nvme device. Resolve whichever unmounted, unpartitioned disk is ours.
+DEVICE=""
+for candidate in /dev/xvdf /dev/nvme1n1; do
+  if [ -b "$candidate" ]; then DEVICE="$candidate"; break; fi
+done
+
+if [ -n "$DEVICE" ]; then
+  # Format only if the disk has no filesystem yet (so redeploys keep data).
+  if ! blkid "$DEVICE"; then
+    mkfs.ext4 -F "$DEVICE"
+  fi
+  mkdir -p "$MOUNT_POINT"
+  UUID="$(blkid -s UUID -o value "$DEVICE")"
+  if ! grep -q "$UUID" /etc/fstab; then
+    echo "UUID=$UUID $MOUNT_POINT ext4 defaults,nofail 0 2" >> /etc/fstab
+  fi
+  mount -a
+fi
+
+mkdir -p "$APP_DIR"
+
+#############################################
+# 3. Optional: clone repo + start the app
+#############################################
+REPO_URL="${repo_url}"
+if [ -n "$REPO_URL" ]; then
+  if [ ! -d "$APP_DIR/.git" ]; then
+    git clone "$REPO_URL" "$APP_DIR"
+  else
+    git -C "$APP_DIR" pull --ff-only || true
+  fi
+
+  cd "$APP_DIR"
+
+  # .env is gitignored, so seed one from the example if it's missing.
+  # EDIT THIS on the server with real secrets before going live.
+  if [ ! -f .env ] && [ -f .env.example ]; then
+    cp .env.example .env
+  fi
+
+  # Publish the app on port 80 by mapping host 80 -> container 5000.
+  cat > docker-compose.override.yml <<'YAML'
+services:
+  app:
+    ports:
+      - "80:5000"
+YAML
+
+  docker compose up -d --build
+fi
