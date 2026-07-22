@@ -5,6 +5,10 @@ node_modules
 *.md
 .env
 .env.example
+# Never let SSH/TLS private keys into the build context — Dockerfile does
+# `COPY . .`, so anything here ends up baked into an image layer.
+*.pem
+*.key
 data/*.sqlite
 data/*.sqlite-journal
 data/*.sqlite-wal

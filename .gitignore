@@ -17,3 +17,4 @@ terraform/.terraform.lock.hcl
 terraform/terraform.tfvars
 crash.log
 *.tfvars.backup
+LightsailDefaultKey-us-east-1.pem
