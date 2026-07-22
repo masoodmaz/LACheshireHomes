@@ -144,6 +144,15 @@ function initCarousels() {
         goTo(i);
       });
     });
+
+    const auto = Number(carousel.dataset.carouselAuto);
+    if (auto && !prefersReducedMotion) {
+      let timer = setInterval(() => goTo(index + 1), auto);
+      carousel.addEventListener("mouseenter", () => clearInterval(timer));
+      carousel.addEventListener("mouseleave", () => {
+        timer = setInterval(() => goTo(index + 1), auto);
+      });
+    }
   });
 }
 

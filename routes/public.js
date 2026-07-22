@@ -27,6 +27,25 @@ function attachImages(projects) {
   }));
 }
 
+// Projects featured in the homepage hero carousel, shown in this order.
+// Curated rather than "latest" so the hero always leads with the strongest
+// photography; unpublished or renamed slugs are simply skipped.
+const HERO_SLUGS = [
+  "fairfield-road-development",
+  "tennyson-close-bungalow",
+  "edinburgh-road-bungalow",
+  "cheadle-wood"
+];
+
+function heroProjects() {
+  const placeholders = HERO_SLUGS.map(() => "?").join(",");
+  const rows = db
+    .prepare(`SELECT * FROM projects WHERE published = 1 AND slug IN (${placeholders})`)
+    .all(...HERO_SLUGS);
+  const bySlug = new Map(rows.map(row => [row.slug, row]));
+  return attachImages(HERO_SLUGS.map(slug => bySlug.get(slug)).filter(Boolean));
+}
+
 router.get("/", (req, res) => {
   const latestProjects = attachImages(
     db
@@ -37,7 +56,7 @@ router.get("/", (req, res) => {
     .prepare("SELECT * FROM blog_posts WHERE published = 1 ORDER BY created_at DESC LIMIT 3")
     .all();
   const projectCount = db.prepare("SELECT COUNT(*) AS n FROM projects WHERE published = 1").get().n;
-  res.render("index", { title: "Home", latestProjects, latestPosts, projectCount });
+  res.render("index", { title: "Home", latestProjects, heroProjects: heroProjects(), latestPosts, projectCount });
 });
 
 router.get("/projects", (req, res) => {

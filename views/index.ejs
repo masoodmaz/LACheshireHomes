@@ -27,24 +27,55 @@
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <div class="container hero-inner">
-    <p class="eyebrow rise r1">Independent developer &middot; Manchester &amp; Cheshire</p>
-    <h1 class="cascade" aria-label="Quality homes, built with pride in Manchester and Cheshire">
-      <span class="w"><span>Quality</span></span>
-      <span class="w"><span>homes,</span></span>
-      <span class="w"><span>built</span></span>
-      <span class="w"><span>with</span></span>
-      <span class="w wem"><span><em>pride</em></span></span>
-      <span class="w"><span>in</span></span>
-      <span class="w"><span>Manchester</span></span>
-      <span class="w"><span>&amp;</span></span>
-      <span class="w"><span>Cheshire</span></span>
-    </h1>
-    <p class="lead rise r3">We own every site we build on and deliver every project ourselves &mdash; on time, to the highest standard, with meticulous attention to detail.</p>
-    <div class="hero-actions rise r4">
-      <a class="button primary sheen" href="/projects">See our latest projects</a>
-      <a class="button ghost" href="/contact">Get in touch</a>
+  <div class="container hero-inner hero-grid">
+    <div>
+      <p class="eyebrow rise r1">Independent developer &middot; Manchester &amp; Cheshire</p>
+      <h1 class="cascade" aria-label="Quality homes, built with pride in Manchester and Cheshire">
+        <span class="w"><span>Quality</span></span>
+        <span class="w"><span>homes,</span></span>
+        <span class="w"><span>built</span></span>
+        <span class="w"><span>with</span></span>
+        <span class="w wem"><span><em>pride</em></span></span>
+        <span class="w"><span>in</span></span>
+        <span class="w"><span>Manchester</span></span>
+        <span class="w"><span>&amp;</span></span>
+        <span class="w"><span>Cheshire</span></span>
+      </h1>
+      <p class="lead rise r3">We own every site we build on and deliver every project ourselves &mdash; on time, to the highest standard, with meticulous attention to detail.</p>
+      <div class="hero-actions rise r4">
+        <a class="button primary sheen" href="/projects">See our latest projects</a>
+        <a class="button ghost" href="/contact">Get in touch</a>
+      </div>
     </div>
+
+    <%
+      const heroSlides = heroProjects.flatMap(p =>
+        p.images.slice(0, 2).map(img => ({ src: img.file_path, title: p.title, location: p.location, slug: p.slug }))
+      );
+    %>
+    <% if (heroSlides.length) { %>
+      <div class="hero-carousel rise r3">
+        <div class="carousel" data-carousel data-carousel-auto="3500">
+          <div class="carousel-track">
+            <% heroSlides.forEach(slide => { %>
+              <div class="carousel-slide">
+                <a href="/projects/<%= slide.slug %>">
+                  <img src="<%= slide.src %>" alt="<%= slide.title %>" loading="eager">
+                  <span class="hero-slide-caption"><b><%= slide.title %></b><i><%= slide.location %></i></span>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+          <% if (heroSlides.length > 1) { %>
+            <div class="carousel-dots hero-dots" data-carousel-dots>
+              <% heroSlides.forEach((s, i) => { %>
+                <button type="button" class="carousel-dot <%= i === 0 ? 'active' : '' %>" data-carousel-dot="<%= i %>" aria-label="Photo <%= i + 1 %>"></button>
+              <% }) %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
   </div>
 
   <a class="hero-scroll" href="#about" aria-label="Scroll to content"><span></span></a>
