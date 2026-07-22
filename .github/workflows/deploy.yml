@@ -1,0 +1,46 @@
+name: Deploy to Lightsail
+
+# Deploys to the running Lightsail Docker host on every push to master.
+# Runs on a SELF-HOSTED runner installed on the server itself, so no inbound
+# SSH is needed — the runner connects outbound to GitHub and deploys locally.
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
+
+# Never run two deploys at once; let an in-flight deploy finish.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, lacheshirehomes]
+    steps:
+      - name: Pull latest code and rebuild the container
+        run: |
+          set -euo pipefail
+          cd /opt/lacheshirehomes
+          # Update code to match the pushed commit. Ignored files (.env,
+          # Caddyfile, docker-compose.override.yml) and the data/ + uploads/
+          # dirs are untracked, so they are left untouched.
+          sudo git fetch --prune origin
+          sudo git reset --hard "origin/${GITHUB_REF_NAME}"
+          # Rebuild only the app image and restart it (Caddy/ngrok unaffected).
+          sudo docker compose up -d --build app
+          sudo docker image prune -f
+
+      - name: Health check
+        run: |
+          set -uo pipefail
+          for i in $(seq 1 20); do
+            code="$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:5000/ || true)"
+            if [ "$code" = "200" ]; then
+              echo "App healthy (HTTP 200) after $((i*3))s."
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "::error::App did not return HTTP 200 within 60s. Recent logs:"
+          sudo docker compose logs --tail 50 app
+          exit 1
