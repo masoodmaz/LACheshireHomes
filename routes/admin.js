@@ -74,7 +74,17 @@ router.get("/", (req, res) => {
 
 // --- Projects ---
 router.get("/projects", (req, res) => {
-  const projects = db.prepare("SELECT * FROM projects ORDER BY created_at DESC").all();
+  // Fall back to the first gallery image when no cover was uploaded, so the list
+  // shows the same thumbnail the public cards use.
+  const projects = db.prepare(
+    `SELECT p.*,
+            COALESCE(NULLIF(p.cover_image, ''), (
+              SELECT m.file_path FROM project_media m
+              WHERE m.project_id = p.id AND m.type = 'image'
+              ORDER BY m.sort_order ASC, m.id ASC LIMIT 1
+            )) AS thumbnail
+     FROM projects p ORDER BY p.created_at DESC`
+  ).all();
   res.render("admin/projects", { title: "Manage projects", projects });
 });
 

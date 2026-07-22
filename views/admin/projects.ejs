@@ -10,11 +10,18 @@
   <% } else { %>
     <table class="admin-table">
       <thead>
-        <tr><th>Title</th><th>Status</th><th>Published</th><th>Updated</th><th></th></tr>
+        <tr><th>Cover</th><th>Title</th><th>Status</th><th>Published</th><th>Updated</th><th></th></tr>
       </thead>
       <tbody>
         <% projects.forEach(project => { %>
           <tr>
+            <td>
+              <% if (project.thumbnail) { %>
+                <img class="table-thumb" src="<%= project.thumbnail %>" alt="" loading="lazy">
+              <% } else { %>
+                <span class="table-thumb placeholder"></span>
+              <% } %>
+            </td>
             <td><%= project.title %></td>
             <td><span class="badge status-<%= project.status %>"><%= project.status %></span></td>
             <td><%= project.published ? "Yes" : "No" %></td>
