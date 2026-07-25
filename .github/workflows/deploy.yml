@@ -49,3 +49,11 @@ jobs:
           echo "::error::App did not return HTTP 200 within 60s. Recent logs:"
           sudo bash -c "cd /opt/lacheshirehomes && docker compose logs --tail 50 app"
           exit 1
+
+      - name: Seed / refresh blog content
+        # Idempotent: keyed on the post slug, so it updates the existing row in
+        # place rather than duplicating. Runs inside the app container so it
+        # writes to the same persistent SQLite DB the app serves from.
+        run: |
+          set -euo pipefail
+          sudo bash -c "cd /opt/lacheshirehomes && docker compose exec -T app node scripts/seed-ownership-post.js"

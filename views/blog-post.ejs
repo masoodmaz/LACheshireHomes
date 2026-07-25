@@ -1,7 +1,15 @@
 <section class="container section blog-post">
   <a class="back-link" href="/blog">&larr; All posts</a>
-  <h1><%= post.title %></h1>
-  <p class="subtle"><%= new Date(post.created_at).toLocaleDateString() %></p>
+
+  <header class="post-head">
+    <p class="eyebrow">Insights</p>
+    <h1><%= post.title %></h1>
+    <div class="post-meta">
+      <span><%= new Date(post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) %></span>
+      <span class="dot"></span>
+      <span><%= siteName %></span>
+    </div>
+  </header>
 
   <% if (post.cover_image) { %>
     <div class="project-cover">
@@ -9,7 +17,13 @@
     </div>
   <% } %>
 
+  <%
+    // Rich posts author their own HTML (headings, figures, lists); render as-is.
+    // Plain-text posts keep the old line-break behaviour so nothing regresses.
+    const raw = post.content || "";
+    const looksHtml = /<(p|h[1-6]|ul|ol|figure|section|div|blockquote|table)\b/i.test(raw);
+  %>
   <div class="post-content">
-    <%- (post.content || "").replace(/\n/g, "<br>") %>
+    <%- looksHtml ? raw : raw.replace(/\n/g, "<br>") %>
   </div>
 </section>

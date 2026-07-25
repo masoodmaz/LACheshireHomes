@@ -8,6 +8,10 @@ public/uploads/images/*
 public/uploads/videos/*
 !public/uploads/images/.gitkeep
 !public/uploads/videos/.gitkeep
+# Seed images are site content (used by blog posts / project seeds), not user
+# uploads — ship them so they deploy instead of rendering as broken <img>.
+!public/uploads/images/seed/
+!public/uploads/images/seed/**
 
 # Terraform
 terraform/.terraform/
@@ -18,3 +22,4 @@ terraform/terraform.tfvars
 crash.log
 *.tfvars.backup
 LightsailDefaultKey-us-east-1.pem
+apply-to-codebase.md
